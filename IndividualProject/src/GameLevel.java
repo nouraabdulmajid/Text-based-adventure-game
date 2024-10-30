@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class GameLevel {
+public abstract class GameLevel {
 
     private String name;
     private String question;

@@ -39,18 +39,33 @@ public class FileSaver {
 
     }
 
-    public void readFromFile() {
+    public String readFromFile() {
+        String outputString = "";
         while (reader.hasNextLine()) {
             String currentString = reader.nextLine();
             String[] parts = currentString.split(";");
             String name = parts[0];
             String time = parts[1];
-            int funds = Integer.valueOf(parts[2]);
+            String funds = parts[2];
             String destinations = parts[3];
             String[] destinationsList = destinations.split(" ");
-            for (String d: destinationsList) {
-
+            int destinationCount = 0;
+            String destinationPrintout = "";
+            for (String d : destinationsList) {
+                destinationCount += 1;
+                if (destinationCount <= 1) {
+                    destinationPrintout += d;
+                } else if (destinationCount > 1) {
+                    destinationPrintout += ", " + d;
+                }
             }
+
+            if (destinationCount == 0) {
+                outputString += name + ", " + "£" + funds + ", " + Integer.toString(destinationCount) + " cities. Save time: " + time + "\n";
+            } else if (destinationCount > 0) {
+                outputString += name + ", " + "£" + funds + ", " + Integer.toString(destinationCount) + " cities: " + destinationPrintout + ". Save time: " + time + "\n";
+            }
+            return outputString;
         }
 
 
