@@ -31,4 +31,17 @@ public class Player {
     public void increaseFunds() {
         this.funds += 50;
     }
+
+    public void decreaseFunds(int amount) {
+        this.funds -= amount;
+    }
+
+    public void addCity(String cityName) {
+        if (!citiesVisited.contains(cityName))
+            this.citiesVisited.add(cityName);
+    }
+
+    public ArrayList getCitiesVisited() {
+        return this.citiesVisited;
+    }
 }
