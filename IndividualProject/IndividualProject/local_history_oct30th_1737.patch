@@ -1,0 +1,746 @@
+Index: src/domain/Top.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/Top.java b/src/domain/Top.java
+--- a/src/domain/Top.java	
++++ b/src/domain/Top.java	(date 1730327796481)
+@@ -1,9 +1,13 @@
+ package domain;
+ 
+ public class Top extends Clothing {
+-    private String name;
+ 
+     public Top(String name) {
+-        this.name = name;
++
++        super(name);
+     }
++
++
++
++
+ }
+Index: src/domain/City.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/City.java b/src/domain/City.java
+--- a/src/domain/City.java	
++++ b/src/domain/City.java	(date 1730327973454)
+@@ -1,41 +1,73 @@
+ package domain;
+ 
+-import java.util.ArrayList;
+ import java.util.HashMap;
+ 
+ public class City {
+     private String name;
+-    private HashMap accommodationList;  //These need to be converted to HashMap
+-    private HashMap activitiesList;
+ 
+-    public City(String name) {
++    private int cost;
++    private HashMap<String, String> accommodationList;
++    private HashMap<String, String> activitiesList;
++
++    public City(String name, int cost) {
+         this.name = name;
+-        this.accommodationList = new ArrayList<>();
+-        this.activitiesList = new ArrayList<>();
++        this.cost = cost;
++        this.accommodationList = new HashMap<>();
++        this.activitiesList = new HashMap<>();
+     }
+ 
++    //setter
+     public void setName(String name) {
+         this.name = name;
+     }
+ 
++    //getter
+     public String getName() {
+         return this.name;
+     }
+ 
+-    public ArrayList getAccommodation() {
+-        return this.accommodationList();
++    //setter
++    public void setCost(int cost) {
++        this.cost = cost;
++    }
++
++    //getter
++    public int getCost() {
++        return this.cost;
++    }
++
++    //setter
++    public void addAccommodation(String accommodationName, String accommodationDescription) {
++        this.accommodationList.put(accommodationName, accommodationDescription);
+     }
+ 
+-    public void addAccommodation(String name, String description) {
+-        this.accommodationList.add(name);
++    //getter
++    public HashMap<String, String> getAccommodation() {
++
++        return this.accommodationList;
+     }
+ 
+-    public ArrayList getActivitiesList() {
+-        return this.activitiesList();
++
++    //allows the return of the accommodation description for use in the story/ UI
++    public String getAccommodationDescription(String accommodationName) {
++        return this.accommodationList.get(accommodationName);
+     }
+ 
+-    public void addActivity(String name, String description) { //PROGRAMMING NOTES need to add requirements for the clothing
+-        this.activitiesList.add(name);
++    //setter
++    public void addActivity(String activityName, String activityDescription) {
++        //PROGRAMMING NOTES need to add requirements for the clothing
++        this.activitiesList.put(activityName, activityDescription);
+     }
++
++    //getter
++    public HashMap<String, String> getActivitiesList() {
++        return this.activitiesList;
++    }
++
++    // Allows the return of the description of the activity for use in the story/ UI
++    public String getActivityDescription(String activityName) {
++        return this.activitiesList.get(activityName);
++    }
++
+ 
+ }
+Index: src/domain/Bottom.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/Bottom.java b/src/domain/Bottom.java
+new file mode 100644
+--- /dev/null	(date 1730328458264)
++++ b/src/domain/Bottom.java	(date 1730328458264)
+@@ -0,0 +1,8 @@
++package domain;
++
++public class Bottom extends Clothing{
++
++    public Bottom(String name) {
++        super(name);
++    }
++}
+Index: src/domain/Bottoms.java
+===================================================================
+diff --git a/src/domain/Bottoms.java b/src/domain/Bottoms.java
+deleted file mode 100644
+--- a/src/domain/Bottoms.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package domain;
+-
+-public class Bottoms extends Clothing{
+-    private String name;
+-
+-    public Bottoms(String name) {
+-        this.name = name;
+-    }
+-}
+Index: src/domain/Player.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/Player.java b/src/domain/Player.java
+--- a/src/domain/Player.java	
++++ b/src/domain/Player.java	(date 1730330854232)
+@@ -1,18 +1,29 @@
+ package domain;
+ 
++import java.util.ArrayList;
++
+ public class Player {
+     private String name;
+     private int funds;
++    private ArrayList<String> citiesVisited;
+ 
+     public Player(String name) {
+         this.name = name;
+         this.funds = 0;
++        this.citiesVisited = new ArrayList<>();
+     }
+ 
++    public void setName(String name) {
++        this.name = name;
++    }
+     public String getName() {
+         return this.name;
+     }
+ 
++    public void setFunds(int funds) {
++        this.funds = funds;
++    }
++
+     public int getFunds() {
+         return this.funds;
+     }
+Index: src/domain/Clothing.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/Clothing.java b/src/domain/Clothing.java
+--- a/src/domain/Clothing.java	
++++ b/src/domain/Clothing.java	(date 1730327700371)
+@@ -1,7 +1,17 @@
+ package domain;
+ 
+ public abstract class Clothing {
+-    private String name;
++    protected String name;
++
++    public Clothing(String name) {
++        this.name = name;
++    }
++
++    public String getName() {
++        return this.name;
++    }
++
++    //think of an abstract method for later
+ 
+ 
+ }
+Index: src/domain/Suitcase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/Suitcase.java b/src/domain/Suitcase.java
+--- a/src/domain/Suitcase.java	
++++ b/src/domain/Suitcase.java	(date 1730325978084)
+@@ -10,10 +10,11 @@
+     }
+ 
+     public ArrayList<Clothing> getContents() {
++
+         return this.contents;
+     }
+ 
+-    public boolean hasItem(Clothing name) {  //PROGRAMMING NOTES check this is the best way to compare objects
++    public boolean hasItem(Clothing name) {
+         for (Clothing c: contents) {
+             if (name.equals(c)) {
+                 return true;
+Index: src/domain/SunProtection.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/domain/SunProtection.java b/src/domain/SunProtection.java
+--- a/src/domain/SunProtection.java	
++++ b/src/domain/SunProtection.java	(date 1730327796487)
+@@ -1,9 +1,10 @@
+ package domain;
+ 
+ public class SunProtection extends Clothing {
+-    private String name;
+ 
+     public SunProtection(String name) {
+-        this.name = name;
++
++        super(name);
+     }
++
+ }
+Index: src/fileSaver/FileSaver.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/fileSaver/FileSaver.java b/src/fileSaver/FileSaver.java
+--- a/src/fileSaver/FileSaver.java	
++++ b/src/fileSaver/FileSaver.java	(date 1730347378892)
+@@ -1,3 +1,4 @@
++/*
+ package fileSaver;
+ 
+ import domain.City;
+@@ -76,3 +77,5 @@
+ 
+     }
+ }
++
++*/
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	
++++ b/src/Main.java	(date 1730347388427)
+@@ -1,18 +1,20 @@
++import domain.*;
++import presentation.*;
++import application.*;
++//import fileSaver.*;
++import java.util.Scanner;
+ 
+ public class Main {
+     public static void main(String[] args) {
+ 
+-        //Creating the objects that are to be used in the game
+-        //Create cities
++        // initialise the UI
++        Scanner reader = new Scanner(System.in);
++        UserInterface ui = new UserInterface(reader);
+ 
+-        //Create sunprotection
++        ui.mainMenuExecute();
+ 
+-        //Create tops
+ 
+-        //Create bottoms
+ 
+-        //Create a suitcase
+ 
+-        //then initialise the UI
+     }
+ }
+Index: src/application/GameLogic.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/application/GameLogic.java b/src/application/GameLogic.java
+--- a/src/application/GameLogic.java	
++++ b/src/application/GameLogic.java	(date 1730348000154)
+@@ -1,17 +1,131 @@
+ package application;
+ 
++import domain.*;
++//import fileSaver.*;
+ import java.util.ArrayList;
+ 
+ public class GameLogic {
+-    private ArrayList levelsList;
++    private Player player;
++    private ArrayList<City> destinations;
++    private ArrayList<Clothing> clothingList;
++    private Suitcase suitcase;
+ 
+     public GameLogic() {
+-        this.levelsList = new ArrayList<>();
++        this.player = null;
++        this.destinations = new ArrayList<>();
++        this.clothingList = new ArrayList<>();
++        this.suitcase = new Suitcase();
++        this.populateData();
++    }
++
++    public void createPlayer(String name) {
++        Player player = new Player(name);
++        this.player = player;
++    }
++
++    public Player getPlayer() {
++        return this.player;
++    }
++
++    public void addDestination(City city) {
++        this.destinations.add(city);
++    }
++
++    public ArrayList getDestinations() {
++        return this.destinations;
++    }
++
++    public City getDestination(String name) {
++        for (City c: this.destinations) {
++            if (c.getName().equals(name)) {
++                return c;
++            }
++        }
++        return null;
++    }
++
++    public ArrayList getClothing() {
++        return this.clothingList;
++    }
++
++    public void addClothing(Clothing clothing) {
++        this.clothingList.add(clothing);
++    }
++
++    public void pack(Clothing clothing) {
++        this.suitcase.addItem(clothing);
++
++    }
++
++    public void work() {
++        this.player.increaseFunds();
++    }
++
++    public String getAccommodationDescription(String cityName, String accommodation) {
++        City destination = this.getDestination(cityName);
++        String description = destination.getAccommodationDescription(accommodation);
++        return description;
++    }
+ 
++    public String getActivityDescription(String cityName, String activity) {
++        City destination = this.getDestination(cityName);
++        String description = destination.getActivityDescription(activity);
++        return description;
+     }
+ 
+-    // arraylist, with each element in the array a level of the game? the levels of the game should
+-    // be an object of a 'level' class
++    public void populateData() {
++        //Creating the objects that are to be used in the game
++        //Create cities
++        City oslo = new City("Oslo", 150);
++        oslo.addAccommodation("bed and breakfast", "The room is small, but is immaculate for a bed and breakfast, with modern, minimal furniture in neutral colours, a full-length mirror and fresh linen bedding.");
++        oslo.addAccommodation("hotel", "The hotel room is very elegantly decorated, with muted wooden furnishings, contemporary, sleek and modern furniture, an elegant divan and a large flatscreen TV.");
++        oslo.addActivity("fjord", "The fjord trip that you had been looking forward to is here. You get in a canoe with your guide, who chats amicably as you sail across the Norwegian waters. The skies are clear and the majestic sight of the mountains is breathtaking.");
++        oslo.addActivity("museum", "The museum is large and expansive, and you hear the scattered chatter from families, couples and individuals alike. A number of viking artefacts are on display, including helmets, axes and spears, which spark your imagination.");
++        City istanbul = new City("Istanbul", 350);
++        istanbul.addAccommodation("bed and breakfast", "The room has a peaceful, though somewhat antiquated feel to it. Through the window, you can see a balcony with an interesting variety of potted plants and flowers.");
++        istanbul.addAccommodation("three star hotel", "The room is spacious and brand new, with a comfortable double bed with clean linen furnishings. You are free to stretch around and gaze outside the window, through which sunlight streems, into the courtyard below, where you can see people coming and going and children playing.");
++        istanbul.addActivity("bazaar", "The bazaar sells a wide array of items, from clothing to crockery and cutlery to jewellery. You gaze at the handmade goods and take a liking to a rug with intricate patterns. After haggling with the seller, it's yours.");
++        istanbul.addActivity("palace", "Approaching the palace, you see a beautiful courtyard with fountains and trees. Inside, the brightly coloured walls are decorated by numerous ornaments, while stunning carpets adorn the floors. You take in the history of the place, admiring it all.");
++        City paris = new City("Paris", 160);
++        paris.addAccommodation("bed and breakfast", "Your room is cheap and cheerful, with a somewhat old bedframe but a nonetheless comfortable mattress. There is an old wooden cupboard for you to store your clothes, and a handy desk. The walls are plain except for a window.");
++        paris.addAccommodation("apartment", "The apartment is small, but has modern furnishings and interiors. The kitchen contains a variety of modern gadgets including an air fryer. The room has muted, elegant and minimal furnishings. You particularly like the balcony, which shows a beautiful view of terraced houses and a beautiful sky.");
++        paris.addActivity("eiffel tower", "Approaching the tower, there is an expansive green lawn with plenty of visitors from all over the world, many who have set up picnic blankets on the lawn. The tower itself stands tall with many tourists walking around it to try to find the best angle to take a photo.");
++        paris.addActivity("palace", "You walk up the steps to the palace, admiring the views of the lawns, gardens and clear blue sky from your high vantage point. The inside is decorated with an array of paintings of people, animals and landscapes from various historical periods, and interesting floor tiles. One room is particularly grand, with an intricately painted ceiling in the roccoco style, gilt details on the walls and interiors and grand solid wood furniture.");
++
++        SunProtection sunglasses = new SunProtection("sunglasses");
++        SunProtection sunHat = new SunProtection ("sunHat");
++
++        //Create tops
++        Top jacket = new Top("jacket");
++        Top shirt = new Top("shirt");
++        Top tee = new Top("tee");
++
++        //Create bottoms
++        Bottom jeans = new Bottom("jeans");
++        Bottom linenTrousers = new Bottom("linen trousers");
++        Bottom skirt = new Bottom("skirt");
++
++        this.addClothing(sunglasses);
++        this.addClothing(sunHat);
++        this.addClothing(jacket);
++        this.addClothing(shirt);
++        this.addClothing(tee);
++        this.addClothing(jeans);
++        this.addClothing(linenTrousers);
++        this.addClothing(skirt);
++
++
++        this.addDestination(oslo);
++        this.addDestination(istanbul);
++        this.addDestination(paris);
++    }
++
++
++
++
++
++
++
+ 
+ 
+ }
+Index: src/application/GameLevel.java
+===================================================================
+diff --git a/src/application/GameLevel.java b/src/application/GameLevel.java
+deleted file mode 100644
+--- a/src/application/GameLevel.java	
++++ /dev/null	
+@@ -1,21 +0,0 @@
+-package application;
+-
+-import java.util.ArrayList;
+-
+-public class GameLevel {
+-
+-    private String name;
+-    private String question;
+-    private ArrayList options;  // implemented as AL rather than HM as won't be a great many options, instead of array to enable ordering
+-
+-    public GameLevel(String name, String question, ) {
+-        this.name = name;
+-        this.question = question;
+-
+-
+-    }
+-
+-    public
+-
+-
+-}
+Index: src/presentation/UserInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/presentation/UserInterface.java b/src/presentation/UserInterface.java
+--- a/src/presentation/UserInterface.java	
++++ b/src/presentation/UserInterface.java	(date 1730351718954)
+@@ -1,38 +1,47 @@
+ package presentation;
+ 
+-import application.GameLogic;
+-
++//import fileSaver.*;
++import application.*;
++import domain.*;
+ import java.util.Scanner;
++import java.util.ArrayList;
+ 
+ public class UserInterface {
+     private Scanner reader;
+     private GameLogic gameLogic;
+-    private FileSaver fileSaver;
++    //private FileSaver fileSaver;
+ 
+     public UserInterface(Scanner scanner) {
+         this.reader = scanner;
+         this.gameLogic = new GameLogic();
+-        this.fileSaver = new FileSaver("scoreboard.txt");
++        //this.fileSaver = new FileSaver("scoreboard.txt");
++
++    }
+ 
++    public GameLogic getGameLogic() {
++        return this.gameLogic;
+     }
+ 
+-    public void mainMenu() {
++    private void mainMenu() {
++        System.out.println("**** Main Menu ****");
+         System.out.println("Choose an Option: ");
+-        System.out.println("Type 'Exit' and press enter - Exit game");
+-        System.out.println("Type 'Start' and press enter - Start new game");
+-        System.out.println("Type 'Scoreboard' and press enter - View scoreboard");
++        System.out.println("Type 'Exit': Exit game - Type 'Start': Start new game - Type 'Scoreboard' - View scoreboard");
+     }
+ 
+     public void mainMenuExecute() {
+-        this.mainMenu();
++        //this.mainMenu();
++        System.out.println("**** Main Menu ****");
++        System.out.println("Choose an Option: ");
++        System.out.println("Type 'Exit': Exit game - Type 'Start': Start new game - Type 'Scoreboard' - View scoreboard");
+         String choice = reader.nextLine();
+         while (true) {
+-            if (choice == "Start") {
++            if (choice.equals("Start")) {
+                 this.gameStart();
+-            } else if (choice == "Scoreboard") {
++            } else if (choice.equals("Scoreboard")) {
+                 this.scoreBoard();
+-            } else if (choice == "0") {
++            } else if (choice.equals("Exit")) {
+                 this.exitGame();
++                break;
+             }
+         }
+     }
+@@ -40,25 +49,180 @@
+     public void gameStart() {
+         System.out.println("Please enter your name: ");
+         String userName = reader.nextLine();
+-        gameLogic.createCharacter(userName);
++        gameLogic.createPlayer(userName);
++        //An introduction to the game
++        System.out.println("Welcome to the game, " + gameLogic.getPlayer().getName() +". ");
++        System.out.println("You are going to begin your very own adventure as a traveller. To travel, you first have to work. Afterwards, you can use your money to go to new places.");
++        //loop starts
++        while (true) {
++            //work
++            this.work();
++
++            //choose a travel destination
++            System.out.println("Well done on all that hard work! Next, choose a travel destination. Type the name of the destination.");
++            String destinationChoice = this.destinationChoice();
++
++            String accommodationChoice = "";
++            String activityChoice = "";
++
++            if (destinationChoice.equals("work")) {
++                continue;
++            }
++
++            //int count = 1;
++            //for (City c: (ArrayList<City>) gameLogic.getDestinations()) {
++                //System.out.println(count + ". " + c.getName() + ". Cost: " + c.getCost());
++                //count ++;
++            //}
++
++            //String destinationChoice = reader.nextLine();
++            //String accommodationChoice = "";
++            //String activityChoice = "";
++
++            //int destinationCost = gameLogic.getDestination(destinationChoice).getCost();
++            //if (gameLogic.getPlayer().getFunds() < destinationCost) {
++                //System.out.println("Sorry, you don't have enough funds to buy that destination. Make another choice or work again. Type 'work' to work again.");
++                //String workAgain = reader.nextLine();
++                //if (workAgain.equals("work")) {
++                    //continue;
++                //} else {
++                    //destinationChoice = workAgain; ///////////
++                //}
++            //} else {
++            //choose accommodation
++            System.out.println("Great choice! Next, choose your accommodation. Type the name of the accommodation to choose.");
++            int accommodationCount = 1;
++            for (String accommodation: gameLogic.getDestination(destinationChoice).getAccommodation().keySet()) {
++                System.out.println(accommodationCount + ". " + accommodation);
++                accommodationCount ++;
++            }
++            accommodationChoice = reader.nextLine(); ////////////////////
++
++            //choose activity
++            System.out.println("Great choice once again! Next, choose your activity. Type the name of the activity.");
++            int activityCount = 1;
++            for (String activity: gameLogic.getDestination(destinationChoice).getActivitiesList().keySet()) {
++                System.out.println(activityCount + ". " + activity);
++                activityCount ++;
++            }
++            activityChoice = reader.nextLine(); /////////////////////
++
++
++            //pack a suitcase
++            System.out.println("Great choice! Next, you have to pack your suitcase.");
++            this.pack();
++
++
++
++            //Story printout
++            System.out.println("Your adventure begins!");
++            System.out.println("You arrive in " + destinationChoice + ".");
++            System.out.println(gameLogic.getDestination(destinationChoice).getAccommodationDescription(accommodationChoice));
++            System.out.println(gameLogic.getDestination(destinationChoice).getActivityDescription(activityChoice));
++            System.out.println("Wow, what a refreshing holiday.");
++            System.out.println("You travel back home, to work some more and possibly see a new destination! Good luck!");
++
++            // loop repeats
++            }
++
++        }
+ 
++    private String destinationChoice() {
++        while (true) {
++            int count = 1;
++            for (City c: (ArrayList<City>) gameLogic.getDestinations()) {
++                System.out.println(count + ". " + c.getName() + ". Cost: " + c.getCost());
++                count ++;
++            }
+ 
+-        }
++            String destinationChoice = reader.nextLine();
++
++            int destinationCost = gameLogic.getDestination(destinationChoice).getCost();
++            if (gameLogic.getPlayer().getFunds() < destinationCost) {
++                System.out.println("Sorry, you don't have enough funds to buy that destination. Make another choice or work again.");
++                System.out.println("Type 'work' to work again, or 'choose again' to choose again.");
++                String option = reader.nextLine();
++                if (!option.equals("work")) {
++                    continue;
++                } else {
++                    return "work";
++                }
++            } else {
++                return destinationChoice;
++            }
++        }
++    }
++
++    private void pack() {
++        while (true) {
++            System.out.println("Type one of the following categories to pack: tops - bottoms - sun protection. To exit, type 'stop packing'.");
++            String packingChoice = reader.nextLine();
++            System.out.println("Next, type the name of the clothing to pack it. ");
++            if (packingChoice.equals("tops")) {
++                for (Clothing clothing : (ArrayList<Clothing>) gameLogic.getClothing()) {
++                    if (clothing instanceof Top) {
++                        System.out.println(clothing.getName());
++                    }
++                }
++            } else if (packingChoice.equals("bottoms")) {
++                for (Clothing clothing : (ArrayList<Clothing>) gameLogic.getClothing()) {
++                    if (clothing instanceof Bottom) {
++                        System.out.println(clothing.getName());
++                    }
++                }
++            } else if (packingChoice.equals("sun protection")) {
++                for (Clothing clothing : (ArrayList<Clothing>) gameLogic.getClothing()) {
++                    if (clothing instanceof SunProtection) {
++                        System.out.println(clothing.getName());
++                    }
++                }
++            } else if (packingChoice.equals("stop packing")) {
++                break;
++            }
+ 
++            String clothingChoice = reader.nextLine();
++            //boolean clothingRecognised = false;
++            for (Clothing clothing : (ArrayList<Clothing>) gameLogic.getClothing()) {
++                if (clothingChoice.equals(clothing.getName())) {
++                    gameLogic.pack(clothing);
++                    //clothingRecognised = true;
++                }
++                //if (clothingRecognised == false) {
++                //System.out.println("The clothing choice you put in was not recognised. Please try again.");
++                ////////////will have to make the code more modular, and find a way to repeat the loop if clothing not recognised
++                //}
++            }
++        }
++        System.out.println("Your packing is all done!");
+     }
++
+ 
+-    public void exitGame() {
++    public void exitGame () {
+         System.out.println("Game exited successfully.");
+     }
+ 
+-    public void scoreBoard() {
++    public void scoreBoard () {
+         System.out.println("Scoreboard: ");
+-        String output = this.fileSaver.readFromFile();
+-        System.out.println(output); //PROGRAMMING NOTES may need to move over code from filesave layer here
++        //String output = this.fileSaver.readFromFile();
++        //System.out.println(output); //PROGRAMMING NOTES may need to move over code from filesave layer here
+     }
+ 
+-    public static void main(String[] args) {
+-        Scanner reader = new Scanner(System.in);
+-        UserInterface interface = new UserInterface(reader);
++
++    private void work() {
++        System.out.println("Type 'work' and press enter to work and get money! When you are ready to exit, type 'stop work'.");
++        while (true) {
++            String input = reader.nextLine();
++            if (input.equals("stop work")) {
++                break;
++            }
++
++            if (input.equals("work")) {
++                gameLogic.work();
++            }
++        }
+     }
+ }
++
++
++
++
